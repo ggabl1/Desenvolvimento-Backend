@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.asm.TypeReference;
-
 import com.example.ONG.Pet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -12,29 +11,30 @@ public class PetRepository {
     private ObjectMapper ObjectMapper = new ObjectMapper();
 
     public List<Pet> pets = new ArrayList<>();
-    public List<Pet> getAll() throws Exception{
-        if(!arquivo.exists()){
+
+    public List<Pet> getAll() throws Exception {
+        if (!arquivo.exists()) {
             arquivo.createNewFile();
         }
         List<Pet> pets = null;
-        if (arquivo.length() > 0){
-            pets = ObjectMapper.readValue(arquivo,
-             new TypeReference<ArrayList<Pet>>() {});
-        } else{
+        if (arquivo.length() > 0) {
+            pets = ObjectMapper.readValue(arquivo, new TypeReference<List<Pet>>() {});
+        } else {
             pets = new ArrayList<>();
         }
         return pets;
     }
 
-    public boolean save(Pet pet) throws Exception{
+    public boolean save(Pet pet) throws Exception {
         List<Pet> pets = this.getAll();
-        for (Pet petNoBanco : pets){
-            if (petNoBanco.getId() == Pet.getId()){
+        for (Pet petNoBanco : pets) {
+            if (petNoBanco.getId() == pet.getId()) {
                 return false;
             }
         }
-        pets.add(Pet);
-        ObjectMapper.whriteValue(arquivo, pets);
+
+        pets.add(pet);
+        ObjectMapper.writeValue(arquivo, pets);
         return true;
     }
 }
