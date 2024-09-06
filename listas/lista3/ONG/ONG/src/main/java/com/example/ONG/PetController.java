@@ -1,3 +1,4 @@
+package com.example.ONG;
 import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -5,19 +6,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ONG.Pet;
-
 @RestController
 @RequestMapping("/pets")
-public class PetsController {
-    private PetService service = new PetService();
+public class PetController {
 
-    @GetMapping
-    public List<Pet> listarPets()throws Exception{
-        return service.listarPets();
-    }
-    @PostMapping
-    public String cadastrarPet(@RequestBody Pet pet)throws Exception{
-        return service.cadastrarNovoPet(pet);
-    }
+  private PetService service = new PetService();
+
+  @GetMapping
+  public List<Pet> listarPets() throws Exception {
+    return service.listarPets();
+  }
+
+  @PostMapping
+  public String cadastrarPet(@RequestBody Pet pet) throws Exception {
+    return service.cadastrarNovoPet(pet);
+  }
 }
