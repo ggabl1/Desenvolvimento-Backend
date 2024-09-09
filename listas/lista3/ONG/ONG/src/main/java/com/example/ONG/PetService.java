@@ -1,5 +1,5 @@
+package com.example.ONG;
 import java.util.List;
-import com.example.ONG.Pet;
 
 public class PetService {
     private PetRepository repository = new PetRepository();

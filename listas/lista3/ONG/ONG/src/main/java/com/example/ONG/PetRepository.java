@@ -1,28 +1,33 @@
+package com.example.ONG;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.asm.TypeReference;
-import com.example.ONG.Pet;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+
 public class PetRepository {
+    private static final int ZERO_BYTE = 0;
     private File arquivo = new File("src/main/resources/database/tb_pets.json");
     private ObjectMapper ObjectMapper = new ObjectMapper();
 
-    public List<Pet> pets = new ArrayList<>();
+    public List<Pet> pets;
 
-    public List<Pet> getAll() throws Exception {
+    public List<Pet> getAll() throws IOException  {
         if (!arquivo.exists()) {
             arquivo.createNewFile();
         }
-        List<Pet> pets = null;
-        if (arquivo.length() > 0) {
-            pets = ObjectMapper.readValue(arquivo, new TypeReference<List<Pet>>() {});
+        
+        if (arquivo.length() > ZERO_BYTE) {
+            return  ObjectMapper.readValue(arquivo, new TypeReference<List<Pet>>() {});
         } else {
-            pets = new ArrayList<>();
+           return  new ArrayList<>();
         }
-        return pets;
+        
     }
 
     public boolean save(Pet pet) throws Exception {
