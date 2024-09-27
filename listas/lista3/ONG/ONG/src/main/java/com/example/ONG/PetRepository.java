@@ -9,7 +9,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
-
 public class PetRepository {
     private static final int ZERO_BYTE = 0;
     private File arquivo = new File("src/main/resources/database/tb_pets.json");
@@ -42,4 +41,6 @@ public class PetRepository {
         ObjectMapper.writeValue(arquivo, pets);
         return true;
     }
+
+
 }
